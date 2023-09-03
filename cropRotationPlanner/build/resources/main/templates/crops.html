@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Crop Rotation System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <style>
+        body {
+            background: linear-gradient(45deg, #FF5733, #FFC300, #FF5733, #FF5733, #FF5733, #FF5733, #FF5733);
+            background-size: 400% 400%;
+            animation: gradient s linear infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            padding: 50px;
+            font-size: 36px;
+        }
+        .custom-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #007BFF; /* Blue color */
+            text-align: center;
+            margin-top: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+            animation: pulsate 2s ease-in-out infinite; /* Apply the pulsating animation */
+        }
+
+        /* Pulsating animation */
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+          /* Custom styles for form elements */
+        .form-group label {
+            font-weight: bold;
+        }
+
+        /* Adjust the width and height of input fields */
+        .form-control {
+            width: 20; /* Set width to 100% to fill the container */
+            height: 40px; /* Adjust the height as needed */
+        }
+
+        /* Adjust the width and height of the button */
+        .btn {
+            width: 80%;
+            height: 50px; /* Adjust the height as needed */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1>Crop Lists</h1>
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+      <th> Crop Name</th>
+      <th> Growth Requirements</th>
+      <th> Disease Susceptibility</th>
+      <th> Fields</th>
+      <th colspan="2">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="crop : ${crops}">
+      <td th:text="${crop.cropName}"> </td>
+      <td th:text="${crop.growthRequirements}"> </td>
+      <td th:text="${crop.diseaseSusceptibility}"> </td>
+      <td>
+        <ul>
+          <li th:each="field : ${crop.fields}">
+            <span th:text="${field.fieldName}"></span> - <span th:text="${field.location}"></span>
+          </li>
+        </ul>
+      </td>
+      <!--<td class="action-links"><a th:href="@{'/update/' + ${crop.id}}">Edit</a></td>
+      <td class="action-links"><a th:href="@{'/delete/' + ${crop.id}}">Delete</a></td>-->
+      <td class="action-links">
+        <a th:href="@{'/update/' + ${crop.id}}" class="btn btn-warning">Edit</a>
+      </td>
+      <td class="action-links">
+        <a th:href="@{'/delete/' + ${crop.id}}" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Update Crop</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+        body {
+            background: linear-gradient(45deg, #FF5733, #FFC300, #FF5733, #FF5733, #FF5733, #FF5733, #FF5733);
+            background-size: 400% 400%;
+            animation: gradient s linear infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            padding: 50px;
+            font-size: 36px;
+        }
+        .custom-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #007BFF; /* Blue color */
+            text-align: center;
+            margin-top: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+            animation: pulsate 2s ease-in-out infinite; /* Apply the pulsating animation */
+        }
+
+        /* Pulsating animation */
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+          /* Custom styles for form elements */
+        .form-group label {
+            font-weight: bold;
+        }
+
+        /* Adjust the width and height of input fields */
+        .form-control {
+            width: 20; /* Set width to 100% to fill the container */
+            height: 40px; /* Adjust the height as needed */
+        }
+
+        /* Adjust the width and height of the button */
+        .btn {
+            width: 18%;
+            height: 50px; /* Adjust the height as needed */
+        }
+        </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="mt-5">Update Crop</h1>
+
+  <!-- Update Form -->
+  <form th:action="@{/update/{id}}" th:object="${crop}" method="post" class="mt-4">
+    <div class="form-group">
+      <label for="cropName">Crop Name:</label>
+      <input type="text" id="cropName" name="cropName" th:field="*{cropName}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="growthRequirements">Growth Requirements:</label>
+      <input type="text" id="growthRequirements" name="growthRequirements" th:field="*{growthRequirements}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="diseaseSusceptibility">Disease Susceptibility:</label>
+      <input type="text" id="diseaseSusceptibility" name="diseaseSusceptibility" th:field="*{diseaseSusceptibility}" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="fieldName">Select Fields:</label>
+      <select class="form-control" id="fieldName" name="fields" th:field="*{fields}">
+        <option th:each="field : ${allFields}" th:value="${field.id}" th:text="${field.fieldName}"></option>
+      </select>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary btn-lg">Update Crop</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
